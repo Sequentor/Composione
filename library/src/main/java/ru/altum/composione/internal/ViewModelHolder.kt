@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import ru.altum.composione.destination.Destination
 
 internal class ViewModelHolder : ViewModel() {
     private val viewModelStores = mutableMapOf<String, ViewModelStore>()
@@ -14,13 +13,10 @@ internal class ViewModelHolder : ViewModel() {
         viewModelStores.forEach { (_, store) -> store.clear() }
     }
 
-    fun viewModelStoreForDestination(
-        destination: Destination
-    ): ViewModelStore = viewModelStores.getOrPut(destination.key) {
-        ViewModelStore()
-    }
+    fun viewModelStoreForDestination(key: String): ViewModelStore =
+        viewModelStores.getOrPut(key) { ViewModelStore() }
 
-    fun clearViewModelStoreOwnerForKey(key: Any) {
+    fun clearViewModelStoreOwnerForKey(key: String) {
         viewModelStores.remove(key)?.clear()
     }
 }

@@ -17,7 +17,7 @@ internal fun rememberChildViewModelStoreOwner(
 ): ViewModelStoreOwner = remember(destination.key) {
     createChildViewModelStoreOwner(
         destination = destination,
-        viewModelStore = viewModelHolder.viewModelStoreForDestination(destination),
+        viewModelStore = viewModelHolder.viewModelStoreForDestination(destination.key),
         savedStateRegistryOwner = savedStateRegistryOwner
     )
 }

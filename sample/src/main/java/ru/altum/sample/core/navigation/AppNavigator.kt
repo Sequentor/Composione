@@ -21,29 +21,34 @@ internal class AppNavigator @Inject constructor(startDestination: Destination) :
         }
     }
 
-    fun applyCommand(command: Command) {
+    private fun applyCommand(command: Command) {
         when (command) {
             is Back -> {
                 backStack.removeAt(backStack.lastIndex)
             }
+
             is BackTo -> {
                 val index: Int = backStack.indexOfFirst { it.key == command.key }
                 if (index != -1) {
                     backStack.retainAll(backStack.subList(0, index + 1))
                 }
             }
+
             is BackToRoot -> {
                 backStack.retainAll(listOf(backStack.first()))
             }
+
             is Forward -> {
                 backStack.add(command.destination)
             }
+
             is NewRoot -> {
                 backStack.apply {
                     clear()
                     add(command.destination)
                 }
             }
+
             is FromRootTo -> {
                 backStack.retainAll(listOf(backStack.first(), command.destination))
             }

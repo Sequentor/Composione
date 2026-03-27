@@ -14,7 +14,7 @@ import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.savedstate.SavedStateRegistryOwner
 import kotlinx.serialization.InternalSerializationApi
 import ru.altum.composione.destination.Destination
-import ru.altum.composione.internal.extension.toBundle
+import ru.altum.composione.destination.toBundle
 
 @OptIn(InternalSerializationApi::class)
 internal fun createChildViewModelStoreOwner(

@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Preserve all Destination implementations
+-keep class * implements ru.altum.composione.destination.Destination { *; }

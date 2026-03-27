@@ -15,7 +15,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -61,13 +61,15 @@ internal class ProfileViewModel @Inject constructor(
         appRouter.navigateTo(Settings(_textState.value))
     }
 
-    fun onBackClick() = appRouter.back()
+    fun onBackClick() = appRouter.back().also {
+        appRouter.setResult("HomeResult", HomeResult())
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
-    val text by viewModel.textState.collectAsState()
+    val text by viewModel.textState.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier
             .fillMaxSize()
